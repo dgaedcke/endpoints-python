@@ -1,4 +1,4 @@
-attrs==17.4.0
+attrs==17.4.0   # newest 19.3.0
 google-endpoints-api-management>=1.10.0
 semver==2.7.7
 setuptools>=36.2.5
