@@ -33,13 +33,23 @@ class OAuth2Scope(object):
     # scope = attr.ib(validator=attr.validators.instance_of(basestring))
     # description = attr.ib(validator=attr.validators.instance_of(basestring))
 
-    def __int__(self, *args, **kwargs):
-        s = kwargs.get("scope", args[0])
-        d = kwargs.get("description", args[1])
+    def __init__(self, scope, description, **kwargs):
+        s = kwargs.get("scope", scope)
+        d = kwargs.get("description", description)
         assert isinstance(s, basestring), "invalid type"
         assert isinstance(d, basestring), "invalid type"
         self.scope = s
         self.description = d
+
+        # fix me for immutable
+        self.__setattr__ = self.setLate__setattr__
+
+
+    def __eq__(self, other):
+        if type(other) is type(self):
+            return self.scope == other.scope
+        else:
+            return False
 
     def __str__(self):
         return "OAuth2Scope: s:{0} d:{1}".format(self.scope, self.description)
@@ -47,7 +57,7 @@ class OAuth2Scope(object):
     def __repr__(self):
         return str(self)
 
-    def __setattr__(self):
+    def setLate__setattr__(self):
         raise Exception.message("instance is immutable")
 
     def __getstate__(self):
@@ -61,7 +71,7 @@ class OAuth2Scope(object):
 
     @property
     def __key(self):
-        return (self.scope, self.description)
+        return self.scope      #, self.description)
 
     def __hash__(self):
         return hash(self.__key)
@@ -86,9 +96,9 @@ class OAuth2Scope(object):
 
 class Issuer(object):
 
-    def __int__(self, *args, **kwargs):
-        s = kwargs.get("issuer", args[0])
-        j = kwargs.get("jwks_uri", args[1])
+    def __init__(self, issuer, jwks_uri, **kwargs):
+        s = kwargs.get("issuer", issuer)
+        j = kwargs.get("jwks_uri", jwks_uri)
         self.issuer = s
         self.jwks_uri = j
 
@@ -106,10 +116,10 @@ class Issuer(object):
 
 class LimitDefinition(object):
 
-    def __int__(self, *args, **kwargs):
-        m = kwargs.get("metric_name", args[0])
-        dn = kwargs.get("display_name", args[1])
-        dl = kwargs.get("default_limit", args[2])
+    def __init__(self, metric_name, display_name, default_limit, **kwargs):
+        m = kwargs.get("metric_name", metric_name)
+        dn = kwargs.get("display_name", display_name)
+        dl = kwargs.get("default_limit", default_limit)
 
         self.metric_name = m
         self.display_name = dn
@@ -126,10 +136,10 @@ class LimitDefinition(object):
 
 class Namespace(object):
 
-    def __int__(self, *args, **kwargs):
-        m = kwargs.get("owner_domain", args[0])
-        dn = kwargs.get("owner_name", args[1])
-        dl = kwargs.get("package_path", args[2])
+    def __init__(self, owner_domain, owner_name, package_path, **kwargs):
+        m = kwargs.get("owner_domain", owner_domain)
+        dn = kwargs.get("owner_name", owner_name)
+        dl = kwargs.get("package_path", package_path)
 
         self.owner_domain = m
         self.owner_name = dn

@@ -3,6 +3,13 @@ Google Cloud Endpoints
 
 Google Cloud Endpoints is a solution for creating RESTful web APIs.
 
+To do after validation
+-------------
+remove attrs
+bump version in setup.py
+note custom copy of protorpc (test only)??
+
+
 Installation
 -------------
 
@@ -11,6 +18,13 @@ Install using pip, as recommended per `App Engine vendoring`_
   .. code:: bash
 
      [sudo] pip install -t lib --ignore-installed google-endpoints
+
+Testing
+---------------
+start server:
+dev_appserver.py --logs_path=/tmp/gaelogs --host=localhost --enable_host_checking=False test/testData/sample_app/app.yaml
+run tests:
+pytest
 
 
 Python Versions

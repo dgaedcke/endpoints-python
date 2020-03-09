@@ -30,6 +30,12 @@ from endpoints.api_config import AUTH_LEVEL
 from endpoints.api_config import ApiConfigGenerator
 from endpoints.constants import API_EXPLORER_CLIENT_ID
 
+
+import sys
+print("inside api_config_manager_test")
+print(sys.path)
+
+
 package = 'api_config_test'
 _DESCRIPTOR_PATH_PREFIX = ''
 

@@ -18,7 +18,7 @@
 from setuptools import setup, find_packages
 
 install_requires = [
-    'attrs==17.4.0',
+    #'attrs==17.4.0',
     'google-endpoints-api-management>=1.10.0',
     'semver==2.7.7',
     'setuptools>=36.2.5',
@@ -32,7 +32,7 @@ setup(
     author='Google Endpoints Authors',
     author_email='googleapis-packages@google.com',
     url='https://github.com/cloudendpoints/endpoints-python',
-    packages=find_packages(exclude=['test', 'test.*']),
+    packages=find_packages(exclude=['test', 'test.*', 'venv', 'venv.*']),
     package_dir={'google-endpoints': 'endpoints'},
     include_package_data=True,
     license='Apache',
